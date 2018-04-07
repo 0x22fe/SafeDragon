@@ -2,7 +2,7 @@
 /* Copyright (C) 2018 0x22fe */
 
 const PORT = 9111;
-const NAME = "SafeDragon Server";
+const NAME = "San Ramon City";
 const HELP = "Helpful Commands:\nmsg, event, pause, resume, stop, & help\n";
 
 var app = require('express')();
@@ -55,7 +55,7 @@ stdin.addListener("data", function (d) {
 
   if (txt.substring(0, 3).toLowerCase() === "msg" && txt.length > 4) {
     io.emit("CHAT_MESSAGE", NAME, txt.substring(4, txt.length));
-  } else if (txt.substring(0, 5).toLowerCase() === "event") {
+  } else if (txt.substring(0, 5).toLowerCase() === "event" && txt.charAt(5) === ' ') {
     var splittxt = txt.substring(6, txt.length).split('|');
     // Send event -> name, message, (time), & status
     io.emit(
@@ -65,6 +65,10 @@ stdin.addListener("data", function (d) {
     io.emit("CHAT_MESSAGE", NAME + ' is shutting down', '');
     process.disconnect();
     process.exit(0);
+  } else if (txt.substring(0, 7).toLowerCase() === "eventx") {
+    io.emit(
+      "NOTIFICATION_EVENT", "Test Event", "This is a test event",
+      new Date(Date.now()).toLocaleString(), "NORMAL");
   } else if (txt.substring(0, 6).toLowerCase() === "pause") {
     running = false;
   } else if (txt.substring(0, 7).toLowerCase() === "resume") {

@@ -75,11 +75,13 @@
 
         // Parse commands
         if (str.charAt(0) === '.') {
-            if (str.substring(1, str.length).toLowerCase() === 'clear') {
+            if (str.substring(1, str.length).toLowerCase() === 'clearc') {
                 localStorage.setItem('MESSAGES', ' ');
-            } else {
-                return;
+            } else if (str.substring(1, str.length).toLowerCase() === 'cleare') {
+                localStorage.setItem('EVENTS', ' ');
             }
+
+            return;
         }
 
         const PORTNUM = 3000;

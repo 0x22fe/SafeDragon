@@ -170,8 +170,16 @@ footer {
 
 .dashboard_event {
   width: 99.5%;
-  height: 20%;
+  height: 22.5%;
   font-size: 5vw;
-  background-color: red
+  background-color: red;
+  border: #272727 0.25vw solid;
+}
+
+.user_item {
+  width: 99.5%;
+  height: 10%;
+  font-size: 5vw;
+  background-color: #ffe600;
   border: #272727 0.25vw solid;
 }

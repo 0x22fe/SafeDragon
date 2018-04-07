@@ -80,7 +80,9 @@
         var tmp = reventget();
         tmp.push(getEvent(name, msg, time, status));
         reventset(tmp);
-        document.getElementById('dash_events').innerHTML += getEvent(name, msg, time, status).src;
+        var tpx = getEvent(name, msg, time, status).src;
+        tpx += document.getElementById('dash_events').innerHTML;
+        document.getElementById('dash_events').innerHTML = tpx;
     });
 
     window.onload = function () {

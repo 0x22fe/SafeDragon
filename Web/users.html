@@ -30,8 +30,62 @@
 
 </head>
 
+<script>
+    var susers = [];
+    var UNI_SOCKET = io();
+
+    if (localStorage.getItem('EVENTS') === null) localStorage.setItem('EVENTS', JSON.stringify(sevents));
+
+    function reventget() {
+        return JSON.parse(localStorage.getItem('EVENTS'));
+    }
+
+    function reventset(val) {
+        localStorage.setItem('EVENTS', JSON.stringify(val));
+    }
+
+    function addEvent(name, message, time, status) {
+        var htmlsrc;
+        var color = status === 'NORMAL' ? 'green' : (status === 'WARNING' ? 'orange' : 'red');
+        htmlsrc = '<div class="dashboard_event" style="background-color: ' + color + '"><h1 style="color: white">' +
+            name +
+            '</h1><h2 style="color: #AAAAAA">' +
+            time +
+            '<br>' + message +
+            '</h2><h3>' + status + '</h3></div>';
+
+        return htmlsrc;
+    }
+
+    function getEvent(nm, message, tm, stat) {
+        return {
+            name: nm,
+            msg: message,
+            time: tm,
+            status: stat,
+            src: addEvent(nm, message, tm, stat)
+        }
+    }
+
+    function renderEvents() {
+        // document.getElementById('events').innerHTML = ' ';
+        sevents = reventget();
+        for (var i = sevents.length - 1; i > 0; i--) {
+            document.getElementById('dash_events').innerHTML += sevents[i].src;
+        }
+    }
+
+    window.onload = function () {
+        renderEvents();
+    };
+</script>
+
 <body>
     <h1>Online Users</h1>
+    <div class="settings">
+
+    </div>
+
 </body>
 
 </html>

@@ -77,6 +77,7 @@
         if (str.charAt(0) === '.') {
             if (str.substring(1, str.length).toLowerCase() === 'clearc') {
                 localStorage.setItem('MESSAGES', ' ');
+                document.getElementById('msgview').value = '';
             } else if (str.substring(1, str.length).toLowerCase() === 'cleare') {
                 localStorage.setItem('EVENTS', ' ');
             }
@@ -108,7 +109,7 @@
         if (msg.length > 96) msg = msg.substring(0, 96);
         document.getElementById('display_messages')
             .innerHTML +=
-            '<h2 style="color: #FF9800; white-space: pre-wrap;text-align: left; padding-left: 5%">' +
+            '<h2 style="color: #305b57; white-space: pre-wrap;text-align: left; padding-left: 5%">' +
             username +
             '</h2><h3 style="white-space: pre-wrap; text-align: left; padding-left: 5%">' + msg + '</h3>';
     });

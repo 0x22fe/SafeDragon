@@ -6,9 +6,9 @@ const UNI_TITLE = UNI_NAME;
 const UNI_FONT = "https://fonts.googleapis.com/css?family=Montserrat";
 //"./assets/Montserrat-Regular.woff";
 
-const UNI_COLOR_MAIN = "#b71c1c";
-const UNI_COLOR_ACCENT = "#FF9800";
-const UNI_COLOR_STANDARD = "#FFFFFF";
+const UNI_COLOR_MAIN = "#5bdb95";
+const UNI_COLOR_ACCENT = "#5bff95";
+const UNI_COLOR_STANDARD = "#5b9b95";
 
 var UNI_MENU_ACTIVE = "";
 var UNI_SOCKET;
@@ -24,9 +24,10 @@ window.onload = function() {
   window.GV_Menu[0] = MenuOption("Dash", "fas fa-tachometer-alt");
   window.GV_Menu[1] = MenuOption("Chat", "fas fa-comments");
   window.GV_Menu[2] = MenuOption("Users", "fas fa-users");
-  window.GV_Menu[3] = MenuOption("Options", "fas fa-cogs");
+  window.GV_Menu[3] = MenuOption("Help", "fas fa-book");
+  window.GV_Menu[4] = MenuOption("Options", "fas fa-cogs");
 
-  // setMenuOption("Dash");
+  //setMenuOption("Dash");
   // document.getElementById("menu_Dash").focus();
 };
 

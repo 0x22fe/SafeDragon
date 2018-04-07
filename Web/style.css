@@ -1,0 +1,177 @@
+/* Unitemplate - CSS */
+
+/* Copyright (C) 2017 0x22fe */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  font-size: 25vw;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #ffffff;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+br {
+  line-height: 175%;
+  color: #b71c1c;
+}
+
+h1 {
+  font-size: 5vw;
+  color: #b71c1c;
+}
+
+h2 {
+  font-size: 4vw;
+  color: #F57C00;
+  line-height: 50%;
+}
+
+h3 {
+  font-size: 3vw;
+  color: #212121;
+  line-height: 75%;
+}
+
+header {
+  font-size: 5vw;
+  padding: 2.5%;
+  flex-shrink: 0;
+  font-family: "Montserrat", sans-serif;
+  color: #ffffff;
+  border-bottom: #9e9e9e 0.1vw solid;
+  background-color: #b71c1c;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+div {
+  height: 5%;
+  flex: 1 0 auto;
+  font-size: 4.5vw;
+  color: #b71c1c;
+  font-family: "Montserrat", sans-serif;
+  background-color: #ffffff;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.menu {
+  font-size: 3vw;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+  padding: 1%;
+  background-color: #b71c1c;
+}
+
+.menu:hover {
+  color: #F57C00;
+  background-color: #ffffff;
+}
+
+footer {
+  display: flex;
+  font-size: 5vw;
+  flex-shrink: 0;
+  align-items: center;
+  flex-direction: row;
+  font-family: "Montserrat", sans-serif;
+  border-top: #b71c1c 0.1vw solid;
+  background-color: #F57C00;
+}
+
+.messages {
+  display: flex;
+  font-size: 5vw;
+  flex-shrink: 0;
+  height: 92.5%;
+  align-items: center;
+  flex-direction: row;
+  font-family: "Montserrat", sans-serif;
+  border-top: #b71c1c 0.1vw solid;
+}
+
+.message_area {
+  display: flex;
+  font-size: 5vw;
+  flex-shrink: 0;
+  height: 1%;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  vertical-align: bottom;
+  font-family: "Montserrat", sans-serif;
+}
+
+.message_view {
+  font-family: "Montserrat", sans-serif;
+  font-size: 5vw;
+  width: 85%;
+  height: 100%;
+  border: #F57C00 0.05vw solid;
+}
+
+.message_send {
+  font-family: "Montserrat", sans-serif;
+  font-size: 4vw;
+  width: 15%;
+  height: 100%;
+  text-align: center;
+  color: #FFFFFF;
+  border-radius: 0.01rem;
+  background-color: #b71c1c;
+  border: none;
+}
+
+.settings {
+  display: flex;
+  font-size: 5vw;
+  flex-shrink: 0;
+  height: 10%;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  vertical-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.settings_input {
+  width: 85%;
+  height: 5%;
+  font-size: 4vw;
+  border: #F57C00 0.05vw solid;
+}
+
+.settings_button {
+  font-size: 4vw;
+  width: 15%;
+  height: auto;
+  padding: 2.5%;
+  color: #FFFFFF;
+  border-radius: 0.01rem;
+  background-color: #b71c1c;
+  border: #F57C00 0.05vw solid;
+}
+
+.dashboard_event {
+  width: 99.5%;
+  height: 20%;
+  font-size: 5vw;
+  background-color: red
+  border: #272727 0.25vw solid;
+}

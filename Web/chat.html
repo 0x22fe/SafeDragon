@@ -1,0 +1,131 @@
+<!-- Unitemplate - HTML !-->
+<!-- Copyright (C) 2017 0x22fe !-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta lang="en_US">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="194x194" href="/assets/favicon-194x194.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#f57c00">
+    <meta name="apple-mobile-web-app-title" content="SafeDragon">
+    <meta name="application-name" content="SafeDragon">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/assets/mstile-144x144.png">
+    <meta name="theme-color" content="#000000">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="internal.js"></script>
+    <link id="uni_font" href="" rel="stylesheet">
+
+    <!-- Font Awesome !-->
+    <link href="./assets/css/fontawesome-all.css" rel="stylesheet">
+</head>
+
+<script src="/external/socket.io.js"></script>
+<script>
+    var messages = [];
+    var UNI_SOCKET = io();
+
+    if (localStorage.getItem('MESSAGES') === null) localStorage.setItem('MESSAGES', JSON.stringify(messages));
+
+    function rmessageget() {
+        return JSON.parse(localStorage.getItem('MESSAGES'));
+    }
+
+    function rmessageset(val) {
+        localStorage.setItem('MESSAGES', JSON.stringify(val));
+    }
+
+    function getMessage(usr, msg, ism) {
+        return {
+            username: usr,
+            message: msg,
+            isme: ism,
+            src: ism ? '<h2 style="white-space: pre-wrap; text-align: right; padding-right: 5%">' + usr +
+                '</h2><h3 style="white-space: pre-wrap;text-align: right; padding-right: 5%">' + msg + '</h3>' : '<h2 style="color: ; white-space: pre-wrap;text-align: left; padding-left: 5%">' +
+                usr +
+                '</h2><h3 style="white-space: pre-wrap;text-align: left; padding-left: 5%">' + msg + '</h3>'
+        };
+    }
+
+    function createMessage(username, text, issending) {
+        var outp;
+        outp = '<div style="width: 40%; height: 10%"> </div>';
+        // Will be finished later
+    }
+
+    function renderMessages() {
+        //document.getElementById('display_messages').innerHTML = ' ';
+        messages = rmessageget();
+        for (var i = 0; i < messages.length; i++) {
+            document.getElementById('display_messages').innerHTML += messages[i].src;
+        }
+    }
+
+    function sendMessage() {
+        var str = document.getElementById('msgview').value;
+
+        // Parse commands
+        if (str.charAt(0) === '.') {
+            if (str.substring(1, str.length).toLowerCase() === 'clear') {
+                localStorage.setItem('MESSAGES', ' ');
+            } else {
+                return;
+            }
+        }
+
+        const PORTNUM = 3000;
+        var username = localStorage.getItem('USERNAME') == null ? "Username?" : localStorage.getItem(
+            'USERNAME');
+        var msg = str;
+        UNI_SOCKET.emit('CHAT_MESSAGE', username, msg);
+        if (username.length > 96) username = username.substring(0, 96);
+        if (msg.length > 96) msg = msg.substring(0, 96);
+        document.getElementById('msgview').value = '';
+        document.getElementById('display_messages')
+            .innerHTML += '<h2 style="white-space: pre-wrap; text-align: right; padding-right: 5%">' + username +
+            '</h2><h3 style="white-space: pre-wrap;text-align: right; padding-right: 5%">' + msg + '</h3>';
+        var tmp = rmessageget();
+        tmp.push(getMessage(username, msg, true));
+        rmessageset(tmp);
+    }
+
+    UNI_SOCKET.on('CHAT_MESSAGE', function (username, msg) {
+        var tmp = rmessageget();
+        tmp.push(getMessage(username, msg, false));
+        rmessageset(tmp);
+        if (username.length > 96) username = username.substring(0, 96);
+        if (msg.length > 96) msg = msg.substring(0, 96);
+        document.getElementById('display_messages')
+            .innerHTML +=
+            '<h2 style="color: #FF9800; white-space: pre-wrap;text-align: left; padding-left: 5%">' +
+            username +
+            '</h2><h3 style="white-space: pre-wrap; text-align: left; padding-left: 5%">' + msg + '</h3>';
+    });
+
+    window.onload = function () {
+        renderMessages();
+    };
+</script>
+
+<body>
+    <div id="messages" style="height: 80%; padding-bottom: -2%; overflow-y: scroll">
+        <p id="display_messages" style="font-size: 4vw">
+            Welcome to the chat!
+        </p>
+    </div>
+    <div class="message_area">
+        <input type="text" class="message_view" id="msgview" autocomplete="on" />
+        <button class="message_send" onclick="sendMessage()">Send</button>
+    </div>
+</body>
+
+</html>

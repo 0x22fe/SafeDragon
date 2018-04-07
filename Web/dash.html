@@ -1,0 +1,98 @@
+<!-- Unitemplate - HTML !-->
+<!-- Copyright (C) 2017 0x22fe !-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta lang="en_US">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="194x194" href="/assets/favicon-194x194.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#f57c00">
+    <meta name="apple-mobile-web-app-title" content="SafeDragon">
+    <meta name="application-name" content="SafeDragon">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/assets/mstile-144x144.png">
+    <meta name="theme-color" content="#000000">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="internal.js"></script>
+    <link id="uni_font" href="" rel="stylesheet">
+
+    <!-- Font Awesome !-->
+    <link href="./assets/css/fontawesome-all.css" rel="stylesheet">
+
+</head>
+
+<script src="/external/socket.io.js"></script>
+<script>
+    var sevents = [];
+    var UNI_SOCKET = io();
+
+    if (localStorage.getItem('EVENTS') === null) localStorage.setItem('EVENTS', JSON.stringify(sevents));
+
+    function reventget() {
+        return JSON.parse(localStorage.getItem('EVENTS'));
+    }
+
+    function reventset(val) {
+        localStorage.setItem('EVENTS', JSON.stringify(val));
+    }
+
+    function addEvent(name, message, time, status) {
+        var htmlsrc;
+        var color = status === 'NORMAL' ? 'green' : (status === 'WARNING' ? 'orange' : 'red');
+        htmlsrc = '<div class="dashboard_event" style="background-color: ' + color + '"><h1 style="color: white">' +
+            name +
+            '</h1><h2 style="color: #AAAAAA">' +
+            time +
+            '<br>' + message +
+            '</h2><h3>' + status + '</h3></div>';
+
+        return htmlsrc;
+    }
+
+    function getEvent(nm, message, tm, stat) {
+        return {
+            name: nm,
+            msg: message,
+            time: tm,
+            status: stat,
+            src: addEvent(nm, message, tm, stat)
+        }
+    }
+
+    function renderEvents() {
+        // document.getElementById('events').innerHTML = ' ';
+        sevents = reventget();
+        for (var i = sevents.length - 1; i > 0; i--) {
+            document.getElementById('dash_events').innerHTML += sevents[i].src;
+        }
+    }
+
+    UNI_SOCKET.on('NOTIFICATION_EVENT', function (name, msg, time, status) {
+        var tmp = reventget();
+        tmp.push(getEvent(name, msg, time, status));
+        reventset(tmp);
+        document.getElementById('dash_events').innerHTML += getEvent(name, msg, time, status).src;
+    });
+
+    window.onload = function () {
+        renderEvents();
+    };
+</script>
+
+<body>
+    <h1>Events</h1>
+    <div id="dash_events" style="width: 100%; overflow-y: scroll">
+
+    </div>
+</body>
+
+</html>
